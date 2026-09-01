@@ -1,0 +1,17 @@
+[workspace]
+resolver = "2"
+members = ["crates/protocol", "crates/cli", "crates/relay"]
+
+[workspace.dependencies]
+tokio = { version = "1", features = ["full"] }
+anyhow = "1"
+thiserror = "1"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+snow = "0.9"
+rand = "0.8"
+hkdf = "0.12"
+sha2 = "0.10"
+zeroize = { version = "1", features = ["derive"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
