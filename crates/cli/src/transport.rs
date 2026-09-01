@@ -56,14 +56,12 @@ where
 
     let mut buf = vec![0u8; 65535];
 
+    // Noise_NNpsk2 is a 2-message pattern: -> e, <- e, ee, psk
     let len = handshake.write_message(&[], &mut buf)?;
     send_frame(stream, &buf[..len]).await?;
 
     let msg2 = recv_frame(stream).await?;
     handshake.read_message(&msg2, &mut buf)?;
-
-    let len = handshake.write_message(&[], &mut buf)?;
-    send_frame(stream, &buf[..len]).await?;
 
     let transport = handshake.into_transport_mode()?;
     Ok(Session { transport })
@@ -85,9 +83,6 @@ where
 
     let len = handshake.write_message(&[], &mut buf)?;
     send_frame(stream, &buf[..len]).await?;
-
-    let msg3 = recv_frame(stream).await?;
-    handshake.read_message(&msg3, &mut buf)?;
 
     let transport = handshake.into_transport_mode()?;
     Ok(Session { transport })
